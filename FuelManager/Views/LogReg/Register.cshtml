@@ -1,0 +1,20 @@
+﻿@model FuelManager.Models.dtos.RegisterDto
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+@using(Html.BeginForm("Register","LogReg",FormMethod.Post))
+{
+    <span>Login</span>
+    @Html.TextBoxFor(u=>u.Login)
+
+    <span>Password</span>
+    @Html.PasswordFor(u=>u.Password)
+
+    <button type="submit">
+        Register
+    </button>
+
+}
+

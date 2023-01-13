@@ -1,0 +1,22 @@
+﻿@model FuelManager.Models.dtos.loginDto
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+@using (Html.BeginForm("Login", "LogReg", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+
+    <span>Login</span>
+    @Html.TextBoxFor(u=>u.Login)
+
+    <span>Password</span>
+    @Html.PasswordFor(u=>u.Password)
+
+    <button type="submit">
+        Login
+    </button>
+
+}
+

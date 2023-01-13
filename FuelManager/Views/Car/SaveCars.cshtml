@@ -1,0 +1,25 @@
+﻿@using FuelManager.Models.enums
+@model FuelManager.Models.dtos.CarDto
+@{
+    ViewData["Title"] = "SaveCars";
+}
+
+<h1>SaveCars</h1>
+<p><a asp-action="GetAllCarRecords">Back</a></p>
+
+@using(Html.BeginForm("SaveCars","Car",FormMethod.Post))
+{
+    <span>Brand</span>
+    @Html.TextBoxFor(s=>s.Brand)
+    <span>Model</span>
+    @Html.TextBoxFor(s=>s.Model)
+    <span>Consumption</span>
+    @Html.TextBoxFor(s=>s.Consumption)
+    <span>HP</span>
+    @Html.TextBoxFor(s=>s.HP)
+    <span>FuelType</span>
+    <select asp-for="FuelType" asp-items="Html.GetEnumSelectList<fuelType>()"></select>
+       <button type="submit">Send</button>
+
+   
+}
