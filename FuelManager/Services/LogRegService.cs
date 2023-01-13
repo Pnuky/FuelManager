@@ -44,7 +44,7 @@ namespace FuelManager.Services
             user.Password = hashPass;
             user.RoleId = registerDto.RoleId;
 
-            _context.Users.Add(user);
+            _context.Set<User>().Add(user);
             _context.SaveChanges();
             return true;
 

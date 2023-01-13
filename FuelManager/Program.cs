@@ -14,6 +14,8 @@ builder.Services.AddScoped<ILogRegService, LogRegService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<RolesSeeder>();
 builder.Services.AddScoped<ICarServices, CarService>();
+builder.Services.AddScoped<IRefuelingService, RefuelService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

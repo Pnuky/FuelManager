@@ -19,9 +19,6 @@
                 @Html.DisplayNameFor(model => model.Model)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Consumption)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.HP)
             </th>
             <th></th>
@@ -37,14 +34,10 @@
                 @Html.DisplayFor(modelItem => item.Model)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Consumption)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.HP)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                 <a asp-controller="Refueling" asp-action="GetFuel" asp-route-id="@item.Id">Add new refueling</a>
             </td>
         </tr>
 }

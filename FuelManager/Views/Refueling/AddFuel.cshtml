@@ -1,0 +1,23 @@
+﻿@model FuelManager.Models.dtos.RefuelingDto
+@{
+    ViewData["Title"] = "AddFuel";
+}
+
+<h1>AddFuel</h1>
+
+@using (Html.BeginForm("AddFuel", "Refueling", FormMethod.Post))
+{
+    <span>Mileage</span>
+    @Html.TextBoxFor(u=>u.Run)
+
+    <span>Amount of fuel</span>
+    @Html.TextBoxFor(u=>u.RefuelingAmount)
+
+    <span>Description</span>
+    @Html.TextBoxFor(u=>u.Description)
+
+    <button type="submit">
+        Save
+    </button>
+
+}

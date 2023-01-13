@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FuelManager.Models.dtos.RefuelingDto>
+
+@{
+    ViewData["Title"] = "GetFuel";
+}
+
+<h1>Refueling history</h1>
+
+<p>
+
+    <a asp-controller="Car" asp-action="GetAllCarRecords">Back</a>
+    <a asp-action="AddFuel">Add refueling</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Run)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RefuelingAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Compsuption)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Run)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RefuelingAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Compsuption)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

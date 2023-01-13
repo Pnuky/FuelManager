@@ -13,6 +13,7 @@ namespace FuelManager
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Refueling> Refueling { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>()
@@ -22,6 +23,10 @@ namespace FuelManager
             builder.Entity<Role>()
                 .HasMany(u => u.Users)
                 .WithOne(u => u.Role);
+
+            builder.Entity<Car>()
+                .HasMany(u => u.Refuelings)
+                .WithOne(u => u.Car);
         }
     }
 }

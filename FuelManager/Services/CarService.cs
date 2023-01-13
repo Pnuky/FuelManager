@@ -18,7 +18,6 @@ namespace FuelManager.Services
         {
             var car = new Car();
             car.Brand = carSender.Brand;
-            car.Consumption = carSender.Consumption;
             car.HP = carSender.HP;
             car.UserId = 1;
             car.Model = carSender.Model;
@@ -36,7 +35,6 @@ namespace FuelManager.Services
             var resultDto = getCar.Select(s => new CarDto
             {
                 Brand = s.Brand,
-                Consumption = s.Consumption,
                 HP = s.HP,
                 UserId = s.UserId,
                 Model = s.Model
