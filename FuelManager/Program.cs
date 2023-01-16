@@ -15,6 +15,7 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddScoped<ICarServices, CarService>();
 builder.Services.AddScoped<IRefuelingService, RefuelService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 var app = builder.Build();
 

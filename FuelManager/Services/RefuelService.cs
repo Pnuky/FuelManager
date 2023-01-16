@@ -23,27 +23,30 @@ namespace FuelManager.Services
             var lastValue = _context.Set<Refueling>().Where(x => x.CarId == carId).OrderByDescending(x => x.Id).FirstOrDefault();
             var refueling = new Refueling();
 
-            if (refuelingDto.Run > lastValue.Run)
-            {
+           
                 if (lastValue == null)
                 {
                     refueling.RefuelingAmount = refuelingDto.RefuelingAmount;
                     refueling.Run = refuelingDto.Run;
                     refueling.CarId = carId;
                     refueling.Compsumption = null;
+                    _context.Set<Refueling>().Add(refueling);
+                    _context.SaveChanges();
+                    return true;
                 }
-                else
+                else if(refuelingDto.Run > lastValue.Run)
                 {
                     refueling.RefuelingAmount = refuelingDto.RefuelingAmount;
                     refueling.Run = refuelingDto.Run;
                     refueling.CarId = carId;
-                    refueling.Compsumption = refuelingDto.RefuelingAmount / ((refuelingDto.Run - lastValue.Run) / 100);
+                    refueling.Compsumption = refuelingDto.RefuelingAmount / ((refuelingDto.Run - lastValue.Run) / 100d);
+                    _context.Set<Refueling>().Add(refueling);
+                    _context.SaveChanges();
+                    return true;
                 }
 
-                _context.Set<Refueling>().Add(refueling);
-                _context.SaveChanges();
-                return true;
-            }
+            
+ 
             return false;
 
         }
@@ -59,6 +62,11 @@ namespace FuelManager.Services
                 Compsuption = s.Compsumption
             });
             return result;
+        }
+
+        public int GetRoleId(int id)
+        {
+            return _context.Set<User>().FirstOrDefault(get => get.Id == id).RoleId;
         }
     }
 }

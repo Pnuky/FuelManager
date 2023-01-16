@@ -23,13 +23,14 @@ namespace FuelManager.Controllers
                 return View(registerDto);
             }
             _logRegService.Register(registerDto);
-            
+            TempData["IdHolder"] = 0;
             return RedirectToAction("Login");
            
         }
         [HttpGet]
         public IActionResult Register()
         {
+            TempData["IdHolder"] = 0;
             return View();
         }
 
@@ -57,7 +58,11 @@ namespace FuelManager.Controllers
             TempData["IdHolder"] = 0;
             return View();
         }
-        
+
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Login");
+        }
     }
     
 }

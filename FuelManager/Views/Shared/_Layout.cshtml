@@ -19,37 +19,38 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if((int)TempData["IdHolder"] == 1)
+                        @if ((int)TempData["IdHolder"] == 1 || ((int)TempData["IdHolder"] == 2))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Login">LogReg</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="GetAllCarRecords">GetAllCarRecords</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="GetAllCarRecords">Admin Panel</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Logout">Logout</a>
-                            </li>
-                        }
-                        @if((int)TempData["IdHolder"] == 2)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Login">LogReg</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="GetAllCarRecords">GetAllCarRecords</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Logout">Logout</a>
-                            </li>
+                            @if ((int)TempData["IdHolder"] == 1)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="GetAllCarRecords">GetAllCarRecords</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="GetCar">Manage cars</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="GetUser">Manage users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Logout">Logout</a>
+                                </li>
+                            }else{
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="GetAllCarRecords">GetAllCarRecords</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Logout">Logout</a>
+                                </li>
+                            }
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Login">LogReg</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="LogReg" asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>

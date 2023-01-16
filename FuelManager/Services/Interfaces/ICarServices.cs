@@ -2,11 +2,11 @@
 
 namespace FuelManager.Services.Interfaces
 {
-    public interface ICarServices
+    public interface ICarServices:IBaseService
     {
-        public IEnumerable<CarDto> ShowAllCars();
+        public IEnumerable<CarDto> ShowAllCars(int userId);
 
-        public void PostCar(CarDto carSender);
+        public void PostCar(CarDto carSender, int userId);
         
     }
 }

@@ -2,9 +2,10 @@
 
 namespace FuelManager.Services.Interfaces
 {
-    public interface IRefuelingService
+    public interface IRefuelingService:IBaseService
     {
         public IEnumerable<RefuelingDto> GetRefueling(int id);
         public bool AddRefueling(RefuelingDto refuelingDto, int carId);
+
     }
 }

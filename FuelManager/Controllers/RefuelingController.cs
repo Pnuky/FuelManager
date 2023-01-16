@@ -1,4 +1,5 @@
-﻿using FuelManager.Models.dtos;
+﻿using FuelManager.Models;
+using FuelManager.Models.dtos;
 using FuelManager.Services;
 using FuelManager.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ namespace FuelManager.Controllers
 {
     public class RefuelingController:Controller
     {
+
         private readonly IRefuelingService _refuelingService;
         private static int _carId { get; set; }
 
@@ -17,6 +19,7 @@ namespace FuelManager.Controllers
 
         public  IActionResult GetFuel(int id)
         {
+            TempData["IdHolder"] = _refuelingService.GetRoleId(LogRegController.userId);
             _carId = id;
             var getFuel = _refuelingService.GetRefueling(id);
             return View(getFuel);
@@ -24,14 +27,16 @@ namespace FuelManager.Controllers
 
         public IActionResult AddFuel(RefuelingDto refuelingDto)
         {
+            TempData["IdHolder"] = _refuelingService.GetRoleId(LogRegController.userId);
+
             if (!ModelState.IsValid)
             {
                 return View(refuelingDto);
             }
-            if (_refuelingService.AddRefueling(refuelingDto, _carId))
+            if (!_refuelingService.AddRefueling(refuelingDto, _carId))
             {
                 ModelState.AddModelError(nameof(refuelingDto.Run), "Run value is lowest tham previous value");
-                    return View(refuelingDto);
+                return View(refuelingDto);
             }
 
             return RedirectToAction("GetAllCarRecords", "Car");

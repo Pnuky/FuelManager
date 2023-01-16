@@ -11,5 +11,6 @@ namespace FuelManager.Models.dtos
         public int HP { get; set; }
         public int UserId { get; set; }
         public fuelType FuelType { get; set; }
+        public UserDto? User { get; set; }
     }
 }
