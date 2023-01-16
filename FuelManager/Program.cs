@@ -12,7 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<FuelManagerDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 builder.Services.AddScoped<ILogRegService, LogRegService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-builder.Services.AddScoped<RolesSeeder>();
+builder.Services.AddScoped<DatabaseSeeder>();
 builder.Services.AddScoped<ICarServices, CarService>();
 builder.Services.AddScoped<IRefuelingService, RefuelService>();
 
@@ -43,7 +43,7 @@ void RoleSeeder()
 {
     using (var roles = app.Services.CreateScope())
     {
-        var rolesScope = roles.ServiceProvider.GetRequiredService<RolesSeeder>();
+        var rolesScope = roles.ServiceProvider.GetRequiredService<DatabaseSeeder>();
         rolesScope.DbSeeder();
     } 
 }

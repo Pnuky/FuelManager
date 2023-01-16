@@ -1,13 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace FuelManager.Models
 {
-    public class RolesSeeder
+    public class DatabaseSeeder
     {   
         private readonly FuelManagerDbContext fuelManagerDbContext;
-        public RolesSeeder(FuelManagerDbContext context)
+        private readonly IPasswordHasher<User> _passwordHasher;
+        public DatabaseSeeder(FuelManagerDbContext context,IPasswordHasher <User> passwordHasher)
         {
             fuelManagerDbContext = context;
+            _passwordHasher = passwordHasher;
         }
 
         private IEnumerable<Role> RoleSeeder()
@@ -27,6 +30,19 @@ namespace FuelManager.Models
             return role;
         }
 
+        private User UserSeeder()
+        {
+            var user = new User
+            {
+                Login = "Admin",
+                Password = "123",
+                RoleId = 1
+            };
+            var hashPass = _passwordHasher.HashPassword(user, user.Password);
+            user.Password = hashPass;
+            return user;
+        }
+
         public void DbSeeder()
         {
             if (fuelManagerDbContext.Database.CanConnect())
@@ -35,6 +51,13 @@ namespace FuelManager.Models
                 {
                     var roleseeder = RoleSeeder();
                     fuelManagerDbContext.Roles.AddRange(roleseeder);
+                    fuelManagerDbContext.SaveChanges();
+
+                }
+                if (!fuelManagerDbContext.Users.Any())
+                {
+                    var userseeder = UserSeeder();
+                    fuelManagerDbContext.Users.Add(userseeder);
                     fuelManagerDbContext.SaveChanges();
                 }
             }

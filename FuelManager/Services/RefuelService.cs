@@ -9,21 +9,43 @@ namespace FuelManager.Services
     public class RefuelService : IRefuelingService
     {
         private readonly FuelManagerDbContext _context;
+        
+
 
         public RefuelService(FuelManagerDbContext context)
         {
             _context = context;
         }
 
-        public void AddRefueling(RefuelingDto refuelingDto)
+        public bool AddRefueling(RefuelingDto refuelingDto, int carId)
         {
-            var refueling = new Refueling();
-            refueling.CarId = refuelingDto.CarId;
-            refueling.RefuelingAmount = refuelingDto.RefuelingAmount;
-            refueling.Run = refuelingDto.Run;
 
-            _context.Set<Refueling>().Add(refueling);
-            _context.SaveChanges();
+            var lastValue = _context.Set<Refueling>().Where(x => x.CarId == carId).OrderByDescending(x => x.Id).FirstOrDefault();
+            var refueling = new Refueling();
+
+            if (refuelingDto.Run > lastValue.Run)
+            {
+                if (lastValue == null)
+                {
+                    refueling.RefuelingAmount = refuelingDto.RefuelingAmount;
+                    refueling.Run = refuelingDto.Run;
+                    refueling.CarId = carId;
+                    refueling.Compsumption = null;
+                }
+                else
+                {
+                    refueling.RefuelingAmount = refuelingDto.RefuelingAmount;
+                    refueling.Run = refuelingDto.Run;
+                    refueling.CarId = carId;
+                    refueling.Compsumption = refuelingDto.RefuelingAmount / ((refuelingDto.Run - lastValue.Run) / 100);
+                }
+
+                _context.Set<Refueling>().Add(refueling);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+
         }
 
         public IEnumerable<RefuelingDto> GetRefueling(int id)
