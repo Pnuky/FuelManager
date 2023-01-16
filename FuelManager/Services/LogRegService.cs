@@ -1,7 +1,9 @@
-﻿using FuelManager.Models;
+﻿using FuelManager.Controllers;
+using FuelManager.Models;
 using FuelManager.Models.dtos;
 using FuelManager.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
 
 namespace FuelManager.Services
 {
@@ -17,6 +19,7 @@ namespace FuelManager.Services
         //Walidacja
         public bool IsValid(loginDto loginDto)
         {
+
             var getUser = _context.Set<User>().FirstOrDefault(get => get.Login == loginDto.Login);
             if (getUser == null)
             {
@@ -25,6 +28,7 @@ namespace FuelManager.Services
             var getPass = _passwordHasher.VerifyHashedPassword(getUser,getUser.Password,loginDto.Password);
             if (getPass == PasswordVerificationResult.Success && getUser.Login == loginDto.Login)
             {
+                LogRegController.userId = getUser.Id;
                 return true;
             }
             return false;
@@ -51,5 +55,22 @@ namespace FuelManager.Services
 
         }
 
+        public void LoginHistory(loginDto loginDto)
+        {
+            var userName = _context.Set<User>().FirstOrDefault(get => get.Login == loginDto.Login);
+            var path = @"C:\Users\Mac\Desktop\PROJEKT_UM\logs.txt";
+            StreamWriter sw;
+            using (sw = File.AppendText(path))
+            {
+                sw.WriteLine($"{userName.Login},{DateTime.Now}");
+                sw.Close();
+            }
+            
+        }
+
+        public int GetRoleId(int id)
+        {
+            return _context.Set<User>().FirstOrDefault(get => get.Id == id).RoleId;
+        }
     }
 }

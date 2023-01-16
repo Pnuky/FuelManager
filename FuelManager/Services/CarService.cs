@@ -19,10 +19,9 @@ namespace FuelManager.Services
             var car = new Car();
             car.Brand = carSender.Brand;
             car.HP = carSender.HP;
-            car.UserId = 1;
+            car.UserId = 2;
             car.Model = carSender.Model;
             car.FuelType = carSender.FuelType;
-            car.UserId = 2;
             _context.Set<Car>().Add(car);
             
             _context.SaveChanges();
@@ -34,6 +33,7 @@ namespace FuelManager.Services
             var getCar = _context.Set<Car>().Include(s=>s.User).ToList();
             var resultDto = getCar.Select(s => new CarDto
             {
+                Id = s.Id,  
                 Brand = s.Brand,
                 HP = s.HP,
                 UserId = s.UserId,

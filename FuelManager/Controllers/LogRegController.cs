@@ -5,8 +5,10 @@ using Newtonsoft.Json.Serialization;
 
 namespace FuelManager.Controllers
 {
+
     public class LogRegController:Controller
     {
+        public static int userId;
         private readonly ILogRegService _logRegService;
         public LogRegController(ILogRegService logRegService)
         {
@@ -41,6 +43,8 @@ namespace FuelManager.Controllers
 
             if (_logRegService.IsValid(loginDto))
             {
+                TempData["IdHolder"] = _logRegService.GetRoleId(userId);
+                _logRegService.LoginHistory(loginDto);
                 return RedirectToAction("GetAllCarRecords","Car");
             }
             ModelState.AddModelError(nameof(loginDto), "Provided data are incorect");
@@ -50,6 +54,7 @@ namespace FuelManager.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            TempData["IdHolder"] = 0;
             return View();
         }
         
